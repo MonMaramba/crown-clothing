@@ -2,7 +2,6 @@ import React from "react";
 import { withRouter } from "react-router-dom"; // rather than prop tunneling(or drilling), withRouter is a higher order component that returns a modified component that will have access to router props
 
 import "./menu-item.scss";
-import { link } from "fs";
 
 const MenuItem = ({ title, imageUrl, size, history, linkUrl, match }) => (
   <div

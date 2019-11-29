@@ -3,12 +3,13 @@ import { Switch, Route } from "react-router-dom";
 
 import "./App.css";
 import Homepage from "./pages/homepage/homepage";
+import ShopPage from "./pages/shop/shop";
 
-const HatsPage = () => (
-  <div>
-    <h1>HATS Page</h1>
-  </div>
-);
+// const HatsPage = () => (
+//   <div>
+//     <h1>HATS Page</h1>
+//   </div>
+// );
 function App() {
   return (
     <div>
@@ -25,7 +26,8 @@ function App() {
           component={Homepage}
           //main arguments exact path component(component to be rendered)
         />
-        <Route exact path="/hats" component={HatsPage} />
+        {/* <Route exact path="/hats" component={HatsPage} /> */}
+        <Route exact path="/shop" component={ShopPage} />
       </Switch>
       {/* <Homepage /> */}
     </div>
