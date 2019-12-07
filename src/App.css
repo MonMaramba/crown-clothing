@@ -7,3 +7,7 @@ a {
   text-decoration: none; /* react-router-dom converts Link component to a tag. By default a tags are styled with underline */
   color: black;
 }
+
+* {
+  box-sizing: border-box;
+}
