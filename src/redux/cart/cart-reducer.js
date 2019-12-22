@@ -11,11 +11,9 @@ const cartReducer = (state = INITIAL_STATE, action) => {
         ...state,
         hidden: !state.hidden
       };
-      break;
 
     default:
       return state;
-      break;
   }
 };
 
