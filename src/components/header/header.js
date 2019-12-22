@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+// higher order component that connects components to redux
+import { connect } from "react-redux";
 
 import { auth } from "../../firebase/firebase";
 
@@ -32,4 +34,10 @@ const Header = ({ currentUser }) => (
   </div>
 );
 
-export default Header;
+// Function to be passed on to connect that will allow access to state. The State being the root-reducer
+
+const mapStateToProps = state => ({
+  currentUser: state.user.currentUser
+});
+
+export default connect(mapStateToProps)(Header);
