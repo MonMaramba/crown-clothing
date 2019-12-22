@@ -11,7 +11,7 @@ import { ReactComponent as Logo } from "../../resources/crownLogo.svg"; // speci
 
 import "./header.scss";
 
-const Header = ({ currentUser }) => (
+const Header = ({ currentUser, hidden }) => (
   <div className="header">
     <Link className="logo-container" to="/">
       <Logo className="logo" />
@@ -34,14 +34,15 @@ const Header = ({ currentUser }) => (
       )}
       <CartIcon />
     </div>
-    <CartDropDown />
+    {hidden ? null : <CartDropDown />}
   </div>
 );
 
 // Function to be passed on to connect that will allow access to state. The State being the root-reducer
 
-const mapStateToProps = state => ({
-  currentUser: state.user.currentUser
+const mapStateToProps = ({ user: { currentUser }, cart: { hidden } }) => ({
+  currentUser,
+  hidden
 });
 
 export default connect(mapStateToProps)(Header);
