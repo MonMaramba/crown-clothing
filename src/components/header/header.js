@@ -5,6 +5,8 @@ import { connect } from "react-redux";
 
 import { auth } from "../../firebase/firebase";
 
+import CartIcon from "../cart-icon/cart-icon/cart-icon";
+import CartDropDown from "../cart-dropdown/cart-dropdown";
 import { ReactComponent as Logo } from "../../resources/crownLogo.svg"; // special syntax in react for importing svg
 
 import "./header.scss";
@@ -30,7 +32,9 @@ const Header = ({ currentUser }) => (
           SIGN IN
         </Link>
       )}
+      <CartIcon />
     </div>
+    <CartDropDown />
   </div>
 );
 
