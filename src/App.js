@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 import "./App.css";
 
-import HomePage from "./pages/homepage/homepage";
+import Homepage from "./pages/homepage/homepage";
 import ShopPage from "./pages/shop/shop";
 import Header from "./components/header/header";
 import SignInAndSignUpPage from "./pages/sign-in-and-sign-up-page/sign-in-and-sign-up-page";
@@ -24,13 +24,15 @@ class App extends React.Component {
 
         userRef.onSnapshot(snapShot => {
           setCurrentUser({
-            id: snapShot.id,
-            ...snapShot.data()
+            currentUser: {
+              id: snapShot.id,
+              ...snapShot.data()
+            }
           });
         });
+      } else {
+        setCurrentUser(userAuth);
       }
-
-      setCurrentUser(userAuth);
     });
   }
 
@@ -43,7 +45,7 @@ class App extends React.Component {
       <div>
         <Header />
         <Switch>
-          <Route exact path="/" component={HomePage} />
+          <Route exact path="/" component={Homepage} />
           <Route path="/shop" component={ShopPage} />
           <Route path="/signin" component={SignInAndSignUpPage} />
         </Switch>
@@ -52,6 +54,7 @@ class App extends React.Component {
   }
 }
 // App does not need state/currentUser anymore because the app component only sets the state, so first param is null.
+//
 
 const mapDispatchToProps = dispatch => ({
   setCurrentUser: user => dispatch(setCurrentUser(user))
