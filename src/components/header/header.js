@@ -39,10 +39,11 @@ const Header = ({ currentUser, hidden }) => (
 );
 
 // Function to be passed on to connect that will allow access to state. The State being the root-reducer
+// mapStateToProps updates state
 
 const mapStateToProps = ({ user: { currentUser }, cart: { hidden } }) => ({
   currentUser,
   hidden
 });
-
+// connect basically returns a souped-up Header component
 export default connect(mapStateToProps)(Header);
