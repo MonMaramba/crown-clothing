@@ -51,6 +51,7 @@ class App extends React.Component {
             exact
             path="/signin"
             render={() =>
+              // Conditional render based on presence of currentUser
               this.props.currentUser ? (
                 <Redirect to="/" />
               ) : (
@@ -63,14 +64,11 @@ class App extends React.Component {
     );
   }
 }
-
+// Triggers a function from actions file to get State and pass it as props
 const mapStateToProps = ({ user }) => ({
   currentUser: user.currentUser
 });
-
-// App does not need state/currentUser anymore because the app component only sets the state, so first param is null.
-//
-
+// allows access to state on the reducer files and trigger change
 const mapDispatchToProps = dispatch => ({
   setCurrentUser: user => dispatch(setCurrentUser(user))
 });
