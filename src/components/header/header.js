@@ -44,6 +44,7 @@ const Header = ({ currentUser, hidden }) => (
 
 // Function to be passed on to connect that will allow access to state. The State being the root-reducer
 // Allows access to state types on reducer files
+// createStructuredSelector passes top level state to all functions
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
   hidden: selectCartHidden

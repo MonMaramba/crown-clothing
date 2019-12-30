@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 
 import CartItem from "../cart-item/cart-item";
 import CustomButton from "../custom-button/custom-button";
@@ -19,7 +20,7 @@ const CartDropDown = ({ cartItems }) => (
   </div>
 );
 // ensures cart-dropdown component does not re-render everytime unrelated state properties are updated.
-const mapStateToProps = state => ({
-  cartItems: selectCartItems(state)
+const mapStateToProps = createStructuredSelector({
+  cartItems: selectCartItems
 });
 export default connect(mapStateToProps)(CartDropDown);

@@ -1,6 +1,7 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 
 import "./App.css";
 
@@ -11,6 +12,7 @@ import SignInAndSignUpPage from "./pages/sign-in-and-sign-up-page/sign-in-and-si
 import { auth, createUserProfileDocument } from "./firebase/firebase";
 
 import { setCurrentUser } from "./redux/user/user-actions";
+import { selectCurrentUser } from "./redux/user/user-selectors";
 
 class App extends React.Component {
   unsubscribeFromAuth = null;
@@ -65,8 +67,8 @@ class App extends React.Component {
   }
 }
 // Triggers a function from actions file to get State and pass it as props
-const mapStateToProps = ({ user }) => ({
-  currentUser: user.currentUser
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser
 });
 // allows access to state on the reducer files and trigger change
 const mapDispatchToProps = dispatch => ({
