@@ -9,7 +9,7 @@ import {
 } from "../../redux/cart/cart-selectors";
 
 import "./checkout.scss";
-import CartItem from "../../components/cart-item/cart-item";
+//import CartItem from "../../components/cart-item/cart-item";
 
 const CheckoutPage = ({ cartItems, total }) => (
   <div className="checkout-page">
