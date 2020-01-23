@@ -7,6 +7,7 @@ import { GlobalStyle } from "./global-styles";
 
 import Homepage from "./pages/homepage/homepage";
 import ShopPage from "./pages/shop/shop";
+import ContactPage from "./pages/contact/contactpage";
 import Header from "./components/header/header";
 import SignInAndSignUpPage from "./pages/sign-in-and-sign-up-page/sign-in-and-sign-up-page";
 import { auth, createUserProfileDocument } from "./firebase/firebase";
@@ -51,6 +52,7 @@ class App extends React.Component {
         <Switch>
           <Route exact path="/" component={Homepage} />
           <Route path="/shop" component={ShopPage} />
+          <Route path="/contact" component={ContactPage} />
           <Route
             exact
             path="/signin"
