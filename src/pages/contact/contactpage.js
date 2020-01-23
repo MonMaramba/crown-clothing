@@ -37,6 +37,11 @@ class ContactPage extends React.Component {
     return (
       <div className="contact">
         <h2>Get in touch with us</h2>
+        <span>Our operators are waiting at{` `}</span>
+        <br />
+        <span className="note numbers">1(555) 555.555</span>
+        <h2>Or</h2>
+        <br />
         <span>Let us know what we can do for you</span>
         <form onSubmit={this.handleSubmit}>
           <FormInput
@@ -66,7 +71,7 @@ class ContactPage extends React.Component {
           />
           <CustomButton type="submit">Sign Up</CustomButton>
           <br />
-          <br />
+
           <span className="note">
             As this is a fictional business, none of the data on this page will
             be submitted nor stored. If you wish to send me a message, please do
