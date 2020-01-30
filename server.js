@@ -44,7 +44,7 @@ app.listen(port, error => {
 // /payment route
 app.post("/payment", (req, res) => {
   // creating the body object that we will be getting from the token passed
-  // on from the stripe-button component thru the request
+  // on from the stripe-button component thru the request.
   const body = {
     source: req.body.token.id,
     amount: req.body.amount,
