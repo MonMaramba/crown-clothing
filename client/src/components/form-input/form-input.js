@@ -2,13 +2,13 @@ import React from "react";
 
 import "./form-input.scss";
 
-const FormInput = ({ handleChange, label, ...otherProps }) => (
+const FormInput = ({ handleChange, label, ...props }) => (
   <div className="group">
-    <input className="form-input" onChange={handleChange} {...otherProps} />
+    <input className="form-input" onChange={handleChange} {...props} />
     {label ? (
       <label
         className={`${
-          otherProps.value.length ? "shrink" : "" //will only add the classname 'shrink' when user starts typing
+          props.length ? "shrink" : "" //will only add the classname 'shrink' when user starts typing
         } form-input-label`}
       >
         {label}
