@@ -14,30 +14,19 @@ import SignInAndSignUpPage from "./pages/sign-in-and-sign-up-page/sign-in-and-si
 import CheckoutPage from "./pages/checkout/checkout";
 
 import { selectCurrentUser } from "./redux/user/user-selectors";
+import { checkUserSession } from "./redux/user/user-actions";
 
 class App extends React.Component {
   unsubscribeFromAuth = null;
 
   componentDidMount() {
-    // this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
-    //   if (userAuth) {
-    //     const userRef = await createUserProfileDocument(userAuth);
-    //     userRef.onSnapshot(snapShot => {
-    //       setCurrentUser({
-    //         currentUser: {
-    //           id: snapShot.id,
-    //           ...snapShot.data()
-    //         }
-    //       });
-    //     });
-    //   }
-    //   setCurrentUser(userAuth);
-    //});
+    const { checkUserSession } = this.props;
+    checkUserSession();
   }
 
-  // componentWillUnmount() {
-  //   this.unsubscribeFromAuth();
-  // }
+  componentWillUnmount() {
+    this.unsubscribeFromAuth();
+  }
 
   render() {
     return (
@@ -71,8 +60,8 @@ const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser
 });
 // allows access to state on the reducer files and trigger change
-// const mapDispatchToProps = dispatch => ({
-//   setCurrentUser: user => dispatch(setCurrentUser(user))
-// });
+const mapDispatchToProps = dispatch => ({
+  checkUserSession: () => dispatch(checkUserSession())
+});
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
