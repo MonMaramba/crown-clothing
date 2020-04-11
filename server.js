@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const path = require("path");
+const enforce = require("express-sslify");
 
 // if process.env is not production, load the .env file
 if (process.env.NODE_ENV !== "production") require("dotenv").config();
@@ -28,15 +29,16 @@ app.use(cors());
 // if it's in production, send all the static files in the build.
 // path library concats the current directory(__dirname) with the 'client/build'
 if (process.env.NODE_ENV === "production") {
+  app.use(enforce.HTTPS({ trustProtoHeader: true }));
   app.use(express.static(path.join(__dirname, "client/build")));
 
   // the get requests from the front end, will be given this
-  app.get("*", function(req, res) {
+  app.get("*", function (req, res) {
     res.sendFile(path.join(__dirname, "client/build", "index.html"));
   });
 }
 
-app.listen(port, error => {
+app.listen(port, (error) => {
   if (error) throw error;
   console.log("Server running on port " + port);
 });
@@ -48,7 +50,7 @@ app.post("/payment", (req, res) => {
   const body = {
     source: req.body.token.id,
     amount: req.body.amount,
-    currency: "usd"
+    currency: "usd",
   };
 
   stripe.charges.create(body, (stripeErr, stripeRes) => {
