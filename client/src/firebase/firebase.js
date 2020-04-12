@@ -10,8 +10,10 @@ const config = {
   storageBucket: "crowndb-c5b35.appspot.com",
   messagingSenderId: "530255691782",
   appId: "1:530255691782:web:848d781a24d93ca1848387",
-  measurementId: "G-H918PPP17S"
+  measurementId: "G-H918PPP17S",
 };
+
+firebase.initializeApp(config);
 
 export const createUserProfileDocument = async (userAuth, additionalData) => {
   if (!userAuth) return;
@@ -30,7 +32,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
         displayName,
         email,
         createdAt,
-        ...additionalData
+        ...additionalData,
       });
     } catch (error) {
       console.log("error creating user ", error.message);
@@ -39,7 +41,18 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   return userRef;
 };
 
-firebase.initializeApp(config);
+export const getUserCartRef = async (userId) => {
+  const cartsRef = firestore.collection("carts").where("userId", "==", userId);
+  const snapShot = await cartsRef.get();
+
+  if (snapShot.empty) {
+    const cartDocRef = firestore.collection("carts").doc();
+    await cartDocRef.set({ userId, cartItems: [] });
+    return cartDocRef;
+  } else {
+    return snapShot.docs[0].ref;
+  }
+};
 
 export const addCollectionAndDocuments = async (
   collectionKey,
@@ -48,7 +61,7 @@ export const addCollectionAndDocuments = async (
   const collectionRef = firestore.collection(collectionKey);
 
   const batch = firestore.batch();
-  objectsToAdd.forEach(obj => {
+  objectsToAdd.forEach((obj) => {
     const newDocRef = collectionRef.doc();
     batch.set(newDocRef, obj);
   });
@@ -56,8 +69,8 @@ export const addCollectionAndDocuments = async (
   return await batch.commit();
 };
 
-export const convertCollectionsSnapshotToMap = collections => {
-  const transformedCollection = collections.docs.map(doc => {
+export const convertCollectionsSnapshotToMap = (collections) => {
+  const transformedCollection = collections.docs.map((doc) => {
     const { title, items } = doc.data();
 
     return {
@@ -65,7 +78,7 @@ export const convertCollectionsSnapshotToMap = collections => {
       routeName: encodeURI(title.toLowerCase()),
       id: doc.id,
       title,
-      items
+      items,
     };
   });
   // recursive return call to build the collections object from the array that firebase gives us
@@ -77,7 +90,7 @@ export const convertCollectionsSnapshotToMap = collections => {
 
 export const getCurrentUser = () => {
   return new Promise((resolve, reject) => {
-    const unsubscribe = auth.onAuthStateChanged(userAuth => {
+    const unsubscribe = auth.onAuthStateChanged((userAuth) => {
       unsubscribe();
       resolve(userAuth);
     }, reject);
